@@ -33,7 +33,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private markerLayer = L.layerGroup();
   private centerMarker?: L.Marker;
   private radiusCircle?: L.Circle;
-  private didInitialFit = false;
+  private lastFittedCount = 0;
 
   // Custom icons (Leaflet's default image paths break under bundlers, so we
   // point them at the assets copied into /leaflet by angular.json).
@@ -126,13 +126,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.radiusCircle = undefined;
     }
 
-    // Fit to everything once, the first time we have points.
-    if (!this.didInitialFit && located.length) {
-      const points = located.map(
-        (f) => [f.lat!, f.lng!] as L.LatLngTuple
-      );
-      this.map.fitBounds(L.latLngBounds(points).pad(0.3));
-      this.didInitialFit = true;
+    // Re-fit to frame every friend whenever a new one gets located. Geocoding
+    // resolves one friend at a time, so we keep expanding the view as points
+    // arrive (and again if friends are added later), rather than locking onto
+    // the first one that happens to geocode.
+    if (located.length > this.lastFittedCount) {
+      const points = located.map((f) => [f.lat!, f.lng!] as L.LatLngTuple);
+      this.map.fitBounds(L.latLngBounds(points).pad(0.2), { maxZoom: 15 });
+      this.lastFittedCount = located.length;
     }
   }
 }
