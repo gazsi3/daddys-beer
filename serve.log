@@ -1,0 +1,20 @@
+
+> daddys-beer@0.0.0 start
+> ng serve --port 4250
+
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   2.69 MB |
+polyfills.js          | polyfills     | 252.54 kB |
+styles.css, styles.js | styles        | 164.84 kB |
+main.js               | main          |  45.29 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+| Initial Total |   3.15 MB
+
+Build at: 2026-06-25T07:40:02.476Z - Hash: bd475c8f5a252097 - Time: 9793ms
+
+** Angular Live Development Server is listening on localhost:4250, open your browser on http://localhost:4250/ **
+
+
+√ Compiled successfully.

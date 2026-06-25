@@ -43,6 +43,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/daddys-beer",
+            "allowedCommonJsDependencies": [
+              "leaflet"
+            ],
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -52,9 +55,15 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              }
             ],
             "styles": [
+              "node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -69,8 +78,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ],
               "outputHashing": "all"
